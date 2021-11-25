@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberSecurity3WebApplication", "CyberSecurity3WebApplication\CyberSecurity3WebApplication.csproj", "{BB3EE0FE-B901-4C17-B7CB-31A8BF8BF2E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB3EE0FE-B901-4C17-B7CB-31A8BF8BF2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3EE0FE-B901-4C17-B7CB-31A8BF8BF2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3EE0FE-B901-4C17-B7CB-31A8BF8BF2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3EE0FE-B901-4C17-B7CB-31A8BF8BF2E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B71DFBC5-F35E-421E-A5D9-9B45D19E426C}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://azuredevops.ctcint.ch/productive
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CyberSecurity3WebApplication\\CyberSecurity3WebApplication.csproj
+		SccProjectName1 = CyberSecurity3WebApplication
+		SccLocalPath1 = CyberSecurity3WebApplication
+	EndGlobalSection
+EndGlobal
