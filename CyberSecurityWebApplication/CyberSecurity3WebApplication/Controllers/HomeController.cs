@@ -21,8 +21,11 @@ namespace CyberSecurity3WebApplication.Controllers
             _logger = logger;
         }
 
-        // [Microsoft.AspNetCore.Authorization.Authorize]
-        public IActionResult Index()
+        /// <summary>
+        /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\pal_module_tester_series2_assert_exceptions.log
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Example10()
         {
             var context = base.HttpContext;
 
@@ -36,6 +39,56 @@ namespace CyberSecurity3WebApplication.Controllers
                 {
                     process.StartInfo.FileName = command;
                     process.StartInfo.Arguments = arguments;
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.Start();
+
+                    StreamReader reader = process.StandardOutput;
+                    string output = reader.ReadToEnd();
+                    StreamReader errorReader = process.StandardError;
+                    string error = errorReader.ReadToEnd();
+
+                    process.WaitForExit();
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(output);
+                    sb.AppendLine(error);
+
+                    return Content(sb.ToString());
+                }
+            }
+            else
+            {
+                return Content("command parameter is missing");
+            }
+
+            return View();
+        }
+
+        /// <summary>
+        /// use with https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Example20()
+        {
+            var context = base.HttpContext;
+
+            HttpRequest req = context.Request;
+            string queryString = req.QueryString.Value;
+            string path = req.Query["path"].FirstOrDefault();
+            if (path != null)
+            {
+                using (Process process = new Process())
+                {
+                    process.StartInfo.FileName = "cmd.exe";
+
+                    StringBuilder argumentsSb = new StringBuilder();
+                    argumentsSb.Append(" /c type ");
+                    argumentsSb.Append(path);
+                    process.StartInfo.Arguments = argumentsSb.ToString();
+
+
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
