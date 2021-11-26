@@ -142,6 +142,8 @@ namespace CyberSecurity3WebApplication.Controllers
 
             if (path != null)
             {
+                path = SanitizePath(path);
+
                 if (!IsValidPath(path))
                 {
                     return Problem(detail: "path contains invalid characters", statusCode: 400);
@@ -200,6 +202,29 @@ namespace CyberSecurity3WebApplication.Controllers
             Match match = Regex.Match(path, "([0-9\\-A-Za-z:\\\\_\\.]+)");
             bool isValid = match.Success && match.Value == path;
             return isValid;
+        }
+
+        private static string SanitizePath(string path)
+        {
+            StringBuilder sb = new StringBuilder();
+            bool stop = false;
+            for(int i=0;i<path.Length && !stop;i++)
+            {
+                string substring = path.Substring(i, 1);
+                // valid char ?
+                if (Regex.IsMatch(substring, "[0-9\\-A-Za-z:\\\\_\\.]"))
+                {
+                    // yes, append
+                    sb.Append(substring);
+                }
+                else
+                {
+                    // stop loop
+                    stop = true;
+                }
+            }
+
+            return sb.ToString();
         }
 
         public IActionResult Privacy()
