@@ -12,13 +12,11 @@ namespace CyberSecurity3WebApplication.Controllers
 {
     public class SchoolController : Controller
     {
-        private SchoolContext schoolContext;
         private IConfiguration configuration;
 
-        public SchoolController(IConfiguration configuration, SchoolContext schoolContext)
+        public SchoolController(IConfiguration configuration)
         {
             this.configuration = configuration;
-            this.schoolContext = schoolContext;
         }
 
         /// <summary>
@@ -142,15 +140,6 @@ namespace CyberSecurity3WebApplication.Controllers
                 sb.Append("EnrollmentDate: ").Append(reader[3]).AppendLine();
             }
             return sb.ToString();
-        }
-
-        public IActionResult Example110(string studentLastName)
-        {
-            // var students = schoolContext.Students.ToList();
-            // schoolContext.Students.Add(new Student { LastName = "x", FirstMidName = "y" });
-            // int cnt = schoolContext.SaveChanges();
-
-            return Content("");
         }
     }
 }
