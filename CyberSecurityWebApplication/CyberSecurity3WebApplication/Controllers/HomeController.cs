@@ -28,10 +28,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example10()
         {
-            var context = base.HttpContext;
-
-            HttpRequest req = context.Request;
-            string queryString = req.QueryString.Value;
+            HttpRequest req = base.HttpContext.Request;
             string command = req.Query["command"].FirstOrDefault();
             string arguments = req.Query["arguments"].FirstOrDefault();
             if (command != null)
@@ -73,10 +70,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example20()
         {
-            var context = base.HttpContext;
-
-            HttpRequest req = context.Request;
-            string queryString = req.QueryString.Value;
+            HttpRequest req = base.HttpContext.Request;
             string path = req.Query["path"].FirstOrDefault();
             if (path != null)
             {
@@ -134,10 +128,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example40()
         {
-            var context = base.HttpContext;
-
-            HttpRequest req = context.Request;
-            string queryString = req.QueryString.Value;
+            HttpRequest req = base.HttpContext.Request;
             string path = req.Query["path"].FirstOrDefault();
 
             if (path != null)
