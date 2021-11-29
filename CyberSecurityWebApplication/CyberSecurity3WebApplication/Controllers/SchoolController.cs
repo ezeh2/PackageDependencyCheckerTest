@@ -30,7 +30,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example100_FindByStudentId(string studentId)
         {
-            return Content(FindStudent($"id={studentId}"));
+            return Content(FindStudent(studentId, null, null));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example100_FindByStudentLastName(string studentLastName)
         {
-            return Content(FindStudent($"LastName='{studentLastName}'"));
+            return Content(FindStudent(null, studentLastName,null));
         }
 
         /// <summary>
@@ -58,16 +58,75 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <returns></returns>
         public IActionResult Example100_FindByStudentFirstMidName(string studentFirstMidName)
         {
-            return Content(FindStudent($"FirstMidName='{studentFirstMidName}'"));
+            return Content(FindStudent(null,null, studentFirstMidName));
         }
 
-        private string FindStudent(string where)
+        private string FindStudent(string studentId, string studentLastName, string studentFirstMidName)
+        {
+            return FindStudent2(studentId, studentLastName, studentFirstMidName);
+        }
+
+        private string FindStudent1(string studentId, string studentLastName, string studentFirstMidName)
         {
             SqliteConnection conn = new SqliteConnection(configuration.GetConnectionString("DefaultConnection"));
             conn.Open();
 
+            string where = null;
+            if (studentId != null)
+            {
+                where = $"where id={studentId}";
+            }
+            else if (studentLastName != null)
+            {
+                where = $"where LastName='{studentLastName}'";
+            }
+            else if (studentFirstMidName != null)
+            {
+                where = $"where FirstMidName='{studentFirstMidName}'";
+            }
+
             SqliteCommand cmd = conn.CreateCommand();
-            cmd.CommandText = $"select ID,LastName,FirstMidName,EnrollmentDate from Student where {where}";
+            cmd.CommandText = $"select ID,LastName,FirstMidName,EnrollmentDate from Student {where}";
+
+            return StudentToString(cmd);
+        }
+
+        private string FindStudent2(string studentId, string studentLastName, string studentFirstMidName)
+        {
+            using (SqliteConnection conn = new SqliteConnection(configuration.GetConnectionString("DefaultConnection")))
+            {
+                conn.Open();
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select ID,LastName,FirstMidName,EnrollmentDate from Student where ");
+
+                SqliteCommand cmd = conn.CreateCommand();
+                if (studentId != null)
+                {
+                    sb.Append("id = @ID");
+                    cmd.Parameters.Add("ID", SqliteType.Integer);
+                    cmd.Parameters["ID"].Value = studentId;
+                }
+                if (studentLastName != null)
+                {
+                    sb.Append("LastName = @LastName");
+                    cmd.Parameters.Add("LastName", SqliteType.Text);
+                    cmd.Parameters["LastName"].Value = studentLastName;
+                }
+                if (studentFirstMidName != null)
+                {
+                    sb.Append("FirstMidName = @FirstMidName");
+                    cmd.Parameters.Add("FirstMidName", SqliteType.Text);
+                    cmd.Parameters["FirstMidName"].Value = studentFirstMidName;
+                }
+                cmd.CommandText = sb.ToString();
+
+                return StudentToString(cmd);
+            }
+        }
+
+        private string StudentToString(SqliteCommand cmd)
+        {
             SqliteDataReader reader = cmd.ExecuteReader();
 
             StringBuilder sb = new StringBuilder();
