@@ -29,7 +29,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// https://localhost:44365/search/Example210?searchterm=Li
         /// 
         /// abuse reflected XSS: pass in javascript
-        /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
+        /// https://localhost:44365/search/Example210?searchterm=Li%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// https://localhost:44365/search/Example210?searchterm=Li
         /// 
         /// abuse reflected XSS: pass in javascript
-        /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
+        /// https://localhost:44365/search/Example210?searchterm=Li%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
@@ -83,7 +83,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// https://localhost:44365/search/Example210?searchterm=Li
         /// 
         /// abuse reflected XSS: pass in javascript
-        /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
+        /// https://localhost:44365/search/Example210?searchterm=Li%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
@@ -116,13 +116,19 @@ namespace CyberSecurity3WebApplication.Controllers
             var students = schoolContext.Students.Where(it => it.LastName.StartsWith(searchTerm)).ToList();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("found: ").Append(students.Count);
+            sb.AppendLine("<div>&nbsp;</div>");
+            sb.Append(students.Count).Append(" students found: ");
+            sb.AppendLine("<div>&nbsp;</div>");
             foreach (Student student in students)
             {
-                sb.Append("<div>").Append(student.LastName).Append(student.FirstMidName).Append(student.EnrollmentDate).Append("</div>");
+                sb.Append("<div>ID: ").Append(student.ID).Append("</div>");
+                sb.Append("<div>LastName: ").Append(student.LastName).Append("</div>");
+                sb.Append("<div>FirstMidName: ").Append(student.FirstMidName).Append("</div>");
+                sb.Append("<div>EnrollmentDate: ").Append(student.EnrollmentDate).Append("</div>");
             }
 
-            return sb.ToString();
+            string ret = sb.ToString();
+            return ret;
         }
 
         /// <summary>
