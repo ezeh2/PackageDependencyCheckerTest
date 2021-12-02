@@ -56,12 +56,14 @@ namespace CyberSecurity3WebApplication
             // don't allow inline javascript
             // mitigate XSS
             // https://content-security-policy.com/
+            /*
             app.Use(async (ctx, next) =>
             {
                 ctx.Response.Headers.Add("Content-Security-Policy",
                                          "default-src 'self'; report-uri /cspreport");
                 await next();
             });
+            */
 
             app.UseEndpoints(endpoints =>
             {

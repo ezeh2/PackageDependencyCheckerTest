@@ -25,11 +25,19 @@ namespace CyberSecurity3WebApplication.Controllers
             _logger = logger;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         /// <summary>
         /// command injection
         /// 
         /// normal use
         /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\pal_module_tester_series2_assert_exceptions.log
+        /// 
+        /// abuse command-injection: open notepad.exe
+        /// https://localhost:44365/home/example10?command=notepad.exe
         /// </summary>
         /// <returns></returns>
         public IActionResult Example10()
@@ -70,6 +78,9 @@ namespace CyberSecurity3WebApplication.Controllers
 
         /// <summary>
         /// first attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
+        /// 
+        /// normal use
+        /// https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log
         /// 
         /// abuse command-injection: open notepad.exe
         /// https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
@@ -142,13 +153,13 @@ namespace CyberSecurity3WebApplication.Controllers
 
             if (path != null)
             {
-                path = SanitizePath(path);
+                // path = SanitizePath(path);
 
                 if (!IsValidPath(path))
                 {
                     return Problem(detail: "path contains invalid characters", statusCode: 400);
                 }
-                else if (!path.StartsWith("c:\\temp"))
+                else if (!path.StartsWith("c:\\temp\\"))
                 {
                     return Problem(detail: "path points to a forbidden location", statusCode: 403);
                 }
