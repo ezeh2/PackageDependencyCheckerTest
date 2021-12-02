@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace CyberSecurity3WebApplication.Controllers
 {
+    /// <summary>
+    /// demos for "command-injection"-vulnerabilities
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -23,6 +26,9 @@ namespace CyberSecurity3WebApplication.Controllers
         }
 
         /// <summary>
+        /// command injection
+        /// 
+        /// normal use
         /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\pal_module_tester_series2_assert_exceptions.log
         /// </summary>
         /// <returns></returns>
@@ -60,12 +66,13 @@ namespace CyberSecurity3WebApplication.Controllers
             {
                 return Content("command parameter is missing");
             }
-
-            return View();
         }
 
         /// <summary>
-        /// use with https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
+        /// first attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
+        /// 
+        /// abuse command-injection: open notepad.exe
+        /// https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
         /// </summary>
         /// <returns></returns>
         public IActionResult Example20()
@@ -112,6 +119,8 @@ namespace CyberSecurity3WebApplication.Controllers
         }
 
         /// <summary>
+        /// second attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
+        /// 
         /// shows content of file "c:\temp\pal_module_tester_series2_assert_exceptions.log" in browser
         /// https://localhost:44365/home/example40?path=c:\temp\pal_module_tester_series2_assert_exceptions.log
         /// 
@@ -184,6 +193,8 @@ namespace CyberSecurity3WebApplication.Controllers
         }
 
         /// <summary>
+        /// checks whether path contains only chars, which can occur in a path
+        /// 
         /// https://exceptionshub.com/c-sanitize-file-name.html
         /// </summary>
         /// <param name="fileName"></param>
@@ -195,6 +206,11 @@ namespace CyberSecurity3WebApplication.Controllers
             return isValid;
         }
 
+        /// <summary>
+        /// remove characters, which are never in a path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private static string SanitizePath(string path)
         {
             StringBuilder sb = new StringBuilder();

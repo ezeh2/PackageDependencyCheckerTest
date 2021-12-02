@@ -10,6 +10,9 @@ using System.Web;
 
 namespace CyberSecurity3WebApplication.Controllers
 {
+    /// <summary>
+    /// demos for "reflected XSS"-vulnerabilities
+    /// </summary>
     public class SearchController : Controller
     {
         private SchoolContext schoolContext;
@@ -22,7 +25,10 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <summary>
         /// Reflected XSS
         /// 
+        /// normal use
         /// https://localhost:44365/search/Example210?searchterm=Li
+        /// 
+        /// abuse reflected XSS: pass in javascript
         /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
@@ -46,8 +52,11 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <summary>
         /// mitigate reflected XSS: encode html
         /// 
-        /// https://localhost:44365/search/Example220?searchterm=Li
-        /// https://localhost:44365/search/Example220?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
+        /// normal use
+        /// https://localhost:44365/search/Example210?searchterm=Li
+        /// 
+        /// abuse reflected XSS: pass in javascript
+        /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
@@ -70,8 +79,11 @@ namespace CyberSecurity3WebApplication.Controllers
         /// <summary>
         /// mitigate reflected XSS: sanitize
         /// 
-        /// https://localhost:44365/search/Example230?searchterm=Li
-        /// https://localhost:44365/search/Example230?searchterm=mueller%3Cscript%3Ealert(%27x%27);%3C/script%3E
+        /// normal use
+        /// https://localhost:44365/search/Example210?searchterm=Li
+        /// 
+        /// abuse reflected XSS: pass in javascript
+        /// https://localhost:44365/search/Example210?searchterm=%3Cscript%3Ealert(%27x%27);%3C/script%3E
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
@@ -94,6 +106,11 @@ namespace CyberSecurity3WebApplication.Controllers
             return cr;
         }
 
+        /// <summary>
+        /// returns students, whose lastname starts with searchTerm
+        /// </summary>
+        /// <param name="searchTerm"></param>
+        /// <returns></returns>
         private string GetStudents(string searchTerm)
         {
             var students = schoolContext.Students.Where(it => it.LastName.StartsWith(searchTerm)).ToList();
