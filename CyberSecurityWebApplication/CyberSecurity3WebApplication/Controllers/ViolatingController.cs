@@ -40,5 +40,10 @@ namespace CyberSecurity3WebApplication.Controllers
         {
             return View();
         }
+
+        public IActionResult JsConnectToInternet()
+        {
+            return View();
+        }
     }
 }
