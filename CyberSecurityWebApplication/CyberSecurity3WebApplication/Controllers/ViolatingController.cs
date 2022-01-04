@@ -25,5 +25,10 @@ namespace CyberSecurity3WebApplication.Controllers
         {
             return View();
         }
+
+        public IActionResult ImageFromInternet()
+        {
+            return View();
+        }
     }
 }
