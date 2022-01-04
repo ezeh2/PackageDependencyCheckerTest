@@ -30,5 +30,15 @@ namespace CyberSecurity3WebApplication.Controllers
         {
             return View();
         }
+
+        public IActionResult FormSubmitToInternet()
+        {
+            return View();
+        }
+
+        public IActionResult BaseTagToInternet()
+        {
+            return View();
+        }
     }
 }
