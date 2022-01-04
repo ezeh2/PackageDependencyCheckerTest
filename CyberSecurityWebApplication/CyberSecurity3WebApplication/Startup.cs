@@ -57,11 +57,12 @@ namespace CyberSecurity3WebApplication
             // extension method "AddFile" comes from nuget-package "Serilog.Extensions.Logging.File"
             loggerFactory.AddFile(@"c:\temp\CyberSecurity3WebApplication.log");
 
-            // don't allow inline javascript
-            // mitigate XSS
-            // https://content-security-policy.com/
             app.Use(async (ctx, next) =>
             {
+                // don't allow inline javascript
+                // mitigate XSS
+                // https://content-security-policy.com/
+
                 // "Content-Security-Policy-Report-Only" instructs the browser to only send reports (does not block anything).
                 // change later from "Content-Security-Policy-Report-Only" to "Content-Security-Policy"
 
@@ -69,6 +70,17 @@ namespace CyberSecurity3WebApplication
                 // This policy allows images, scripts, AJAX, form actions, and CSS from the same origin, and does not allow any other resources to load (eg object, frame, media, etc). 
                 ctx.Response.Headers.Add("Content-Security-Policy-Report-Only",
                                          "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; report-uri /api/cspreport");
+
+                // following 3 response-headers are taken from https://github.com/ezeh2/weekday/blob/master/src/WeekDayWebApplication/WeekDayWebApplication/GlobalActionFilter.cs
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection
+                ctx.Response.Headers.Add("X-XSS-Protection"
+                    , new Microsoft.Extensions.Primitives.StringValues("1"));
+                // https://developer.mozilla.org/de/docs/Web/HTTP/Headers/X-Frame-Options
+                ctx.Response.Headers.Add("X-Frame-Options"
+                    , new Microsoft.Extensions.Primitives.StringValues("deny"));
+                // https://developer.mozilla.org/de/docs/Web/HTTP/Headers/X-Content-Type-Options
+                ctx.Response.Headers.Add("X-Content-Type-Options"
+                    , new Microsoft.Extensions.Primitives.StringValues("nosniff"));
                 await next();
             });
 
