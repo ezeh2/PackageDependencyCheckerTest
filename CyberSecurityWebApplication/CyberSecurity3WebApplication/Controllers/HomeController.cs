@@ -34,7 +34,7 @@ namespace CyberSecurity3WebApplication.Controllers
         /// command injection
         /// 
         /// normal use
-        /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\pal_module_tester_series2_assert_exceptions.log
+        /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\trace.log
         /// 
         /// abuse command-injection: open notepad.exe
         /// https://localhost:44365/home/example10?command=notepad.exe
@@ -80,10 +80,10 @@ namespace CyberSecurity3WebApplication.Controllers
         /// first attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
         /// 
         /// normal use
-        /// https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log
+        /// https://localhost:44365/home/example20?path=c:\temp\trace.log
         /// 
         /// abuse command-injection: open notepad.exe
-        /// https://localhost:44365/home/example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
+        /// https://localhost:44365/home/example20?path=c:\temp\trace.log%20%26%26%20c:\windows\notepad.exe
         /// </summary>
         /// <returns></returns>
         public IActionResult Example20()
@@ -133,16 +133,16 @@ namespace CyberSecurity3WebApplication.Controllers
         /// second attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
         /// 
         /// shows content of file "c:\temp\pal_module_tester_series2_assert_exceptions.log" in browser
-        /// https://localhost:44365/home/example40?path=c:\temp\pal_module_tester_series2_assert_exceptions.log
+        /// https://localhost:44365/home/example40?path=c:\temp\trace.log
         /// 
         /// path contains invalid characters:
-        /// https://localhost:44365/home/example40?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe
+        /// https://localhost:44365/home/example40?path=c:\temp\trace.log%20%26%26%20c:\windows\notepad.exe
         /// 
         /// path points to a forbidden location
         /// https://localhost:44365/home/example40?path=c:\tempxy\bla.txt
         /// 
         /// path does not represent a valid file
-        /// https://localhost:44365/home/example40?path=c:\temp\pal_module_tester_series2_assert_exceptions_2_.log
+        /// https://localhost:44365/home/example40?path=c:\temp\trace_2_.log
         /// 
         /// </summary>
         /// <returns></returns>

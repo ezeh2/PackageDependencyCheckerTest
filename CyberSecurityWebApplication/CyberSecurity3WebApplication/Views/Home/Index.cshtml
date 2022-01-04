@@ -5,14 +5,14 @@
 
 <div class="text-center">
     <h4>Command Injection (HomeController)</h4>
-    <p><a href="/home/Example10?command=cmd.exe&arguments=/c%20type%20c:\temp\pal_module_tester_series2_assert_exceptions.log">Example10 (normal use)</a></p>
+    <p><a href="/home/Example10?command=cmd.exe&arguments=/c%20type%20c:\temp\trace.log">Example10 (normal use)</a></p>
     <p><a href="/home/Example10?command=notepad.exe">Example10 (abuse command injection, open notepad.exe)</a></p>
 
-    <p><a href="/home/Example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log">Example20 (normal use)</a></p>
-    <p><a href="/home/Example20?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe">Example20 (abuse command injection, open notepad.exe)</a></p>
+    <p><a href="/home/Example20?path=c:\temp\trace.log">Example20 (normal use)</a></p>
+    <p><a href="/home/Example20?path=c:\temp\trace.log%20%26%26%20c:\windows\notepad.exe">Example20 (abuse command injection, open notepad.exe)</a></p>
 
-    <p><a href="/home/Example40?path=c:\temp\pal_module_tester_series2_assert_exceptions.log">Example40 (normal use)</a></p>
-    <p><a href="/home/Example40?path=c:\temp\pal_module_tester_series2_assert_exceptions.log%20%26%26%20c:\windows\notepad.exe">Example40 (path contains invalid characters)</a></p>
+    <p><a href="/home/Example40?path=c:\temp\trace.log">Example40 (normal use)</a></p>
+    <p><a href="/home/Example40?path=c:\temp\trace.log%20%26%26%20c:\windows\notepad.exe">Example40 (path contains invalid characters)</a></p>
     <p><a href="/home/Example40?path=c:\tempxy\bla.txt">Example40 (path points to a forbidden location)</a></p>
     <p><a href="/home/Example40?path=c:\temp\pal_module_tester_series2_assert_exceptions_2_.log">Example40 (path does not represent a valid file)</a></p>
 </div>
