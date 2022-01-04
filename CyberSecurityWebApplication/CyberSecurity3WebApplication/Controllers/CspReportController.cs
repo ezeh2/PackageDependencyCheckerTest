@@ -30,7 +30,9 @@ namespace CyberSecurity3WebApplication.Controllers
             using (StreamReader sr = new StreamReader(this.Request.Body))
             {
                 message = await sr.ReadToEndAsync();
+                this._logger.LogError("###");
                 this._logger.LogError(message);
+                this._logger.LogError("###");
             }
         }
     }
