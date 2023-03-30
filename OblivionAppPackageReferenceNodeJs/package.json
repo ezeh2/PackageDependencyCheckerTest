@@ -1,0 +1,11 @@
+{
+  "name": "oblivionapppackagereferencenodejs",
+  "version": "1.0.0",
+  "description": "references vuln packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo no test defined"
+  },
+  "author": "",
+  "license": "ISC"
+}
