@@ -7,3 +7,4 @@ bin
 obj
 Debug
 packages
+node_modules
