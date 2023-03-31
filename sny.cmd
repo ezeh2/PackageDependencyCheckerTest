@@ -28,5 +28,25 @@ snyk monitor
 
 
 
+cd C:\Work\PackageDependencyCheckerTest\laps_compare
+snyk code test
+
+
+# C:\Work\PackageDependencyCheckerTest\laps_compare>snyk code test
+# Testing C:\Work\PackageDependencyCheckerTest\laps_compare ...
+# 
+# ✔ Test completed
+# 
+# Organization:      ezeh2
+# Test type:         Static code analysis
+# Project path:      C:\Work\PackageDependencyCheckerTest\laps_compare
+# 
+# Summary:
+# ✔ Awesome! No issues were found.
+
+
+
+cd C:\Work\PackageDependencyCheckerTest\CyberSecurityWebApplication\CyberSecurity3WebApplication
+snyk code test
 
 
