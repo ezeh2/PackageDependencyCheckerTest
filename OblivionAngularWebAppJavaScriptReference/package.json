@@ -20,7 +20,7 @@
     "@angular/router": "~13.3.0",
     "gh": "^2.8.9",
     "jquery": "2.2.3",
-    "matrix-react-sdk": "3.67.0",
+    "matrix-react-sdk": "3.73.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
