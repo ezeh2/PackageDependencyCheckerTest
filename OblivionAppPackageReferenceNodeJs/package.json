@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "angular-server-side-configuration": "15.0.0",
-    "matrix-react-sdk": "3.68.0"
+    "matrix-react-sdk": "3.76.0"
   }
 }
