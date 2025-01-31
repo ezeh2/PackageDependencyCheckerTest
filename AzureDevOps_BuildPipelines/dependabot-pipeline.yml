@@ -1,0 +1,20 @@
+trigger: none # Disable CI trigger
+
+schedules:
+- cron: '0 0 * * 0' # weekly on sunday at midnight UTC
+  always: true # run even when there are no code changes
+  branches:
+    include:
+      - master
+  batch: true
+  displayName: Weekly
+
+pool:
+  vmImage: 'ubuntu-latest' # requires macos or ubuntu (windows is not supported)
+
+steps:
+- task: dependabot@2
+  inputs:
+    mergeStrategy: 'squash'
+
+
