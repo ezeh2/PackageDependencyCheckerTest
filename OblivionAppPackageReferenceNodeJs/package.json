@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular-server-side-configuration": "15.0.0",
+    "angular-server-side-configuration": "15.1.0",
     "matrix-react-sdk": "3.114.0"
   }
 }
