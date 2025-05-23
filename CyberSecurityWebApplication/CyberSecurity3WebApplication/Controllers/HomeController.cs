@@ -31,52 +31,6 @@ namespace CyberSecurity3WebApplication.Controllers
         }
 
         /// <summary>
-        /// command injection
-        /// 
-        /// normal use
-        /// https://localhost:44365/home/example10?command=cmd.exe&arguments=/c%20type%20c:\temp\trace.log
-        /// 
-        /// abuse command-injection: open notepad.exe
-        /// https://localhost:44365/home/example10?command=notepad.exe
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Example10()
-        {
-            HttpRequest req = base.HttpContext.Request;
-            string command = req.Query["command"].FirstOrDefault();
-            string arguments = req.Query["arguments"].FirstOrDefault();
-            if (command != null)
-            {
-                using (Process process = new Process())
-                {
-                    process.StartInfo.FileName = command;
-                    process.StartInfo.Arguments = arguments;
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.RedirectStandardError = true;
-                    process.Start();
-
-                    StreamReader reader = process.StandardOutput;
-                    string output = reader.ReadToEnd();
-                    StreamReader errorReader = process.StandardError;
-                    string error = errorReader.ReadToEnd();
-
-                    process.WaitForExit();
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine(output);
-                    sb.AppendLine(error);
-
-                    return Content(sb.ToString());
-                }
-            }
-            else
-            {
-                return Content("command parameter is missing");
-            }
-        }
-
-        /// <summary>
         /// first attempt to mitigate SQL-Injection: removed command parameter and only use argument-parameter
         /// 
         /// normal use
